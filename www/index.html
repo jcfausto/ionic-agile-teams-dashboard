@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>UNJ - Team Dashboards</title>
+    <title>Agile Team Dashboards</title>
     <link href="css/ionic.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
 </head>
@@ -13,35 +13,13 @@
 <div id="left-nav">
     <div class="welcome">Dashboards</div>
     <div class="title">Times</div>
-    <ul class="list">
-        <li class="list-item">
-            <a class="item-content" href="#dashboard/franca">
-                <i class="ion-stats-bars"></i>
-                <h3>França</h3>
-                <p>Equipe França</p>
-            </a>
-        </li>
-        <li class="list-item">
-            <a class="item-content" href="#dashboard/geinfo">
-                <i class="ion-pie-graph"></i>
-                <h3>GeInfo</h3>
-                <p>Equipe GeInfo</p>
-            </a>
-        </li>
-        <li class="list-item">
-            <a class="item-content" href="#dashboard/aguia">
-                <i class="ion-connection-bars"></i>
-                <h3>Águia</h3>
-                <p>Equipe Águia</p>
-            </a>
-        </li>
-    </ul>
+    <ul class="list"></ul>
 </div>
 
 <div id="container" class="transition">
-    <header class="bar bar-header nav-bar bar-stable">
+    <header id="header" class="bar bar-header nav-bar bar-stable">
         <button id="btn-menu" class="button button-icon" style="font-size: 22px;"><i class="ion-navicon-round"></i></button>
-        <h1 class="title">UNJ - Agile Teams Dashboards</h1>
+        <h1 id="h-title" class="title"></h1>
     </header>
     <div id="content"></div>
 </div>

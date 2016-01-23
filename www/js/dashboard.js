@@ -13,7 +13,7 @@ var dashboard = (function () {
     // <div class="quadrant aqua pull-left"></div><div class="quadrant blue pull-right" ></div><div class="quadrant green pull-left bottom"></div><div class="quadrant tan pull-right bottom"></div>
 
     function getCurrentValueForTeam(team, indicator) {
-        if (team === "franca") {
+        if (team === "1") {
             if (indicator === "errornumber"){
                 return results["20161"][0].errornumber
             } else if (indicator === "process") {
@@ -23,7 +23,7 @@ var dashboard = (function () {
             } else if (indicator === "productivity") {
                 return results["20161"][0].productivity
             }            
-        } else if (team === "geinfo") {
+        } else if (team === "2") {
             if (indicator === "errornumber"){
                 return results["20161"][1].errornumber
             } else if (indicator === "process") {
@@ -33,7 +33,7 @@ var dashboard = (function () {
             } else if (indicator === "productivity") {
                 return results["20161"][1].productivity
             }
-        } else if (team === "aguia") {
+        } else if (team === "3") {
             if (indicator === "errornumber"){
                 return results["20161"][2].errornumber
             } else if (indicator === "process") {
