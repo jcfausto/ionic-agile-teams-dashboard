@@ -215,7 +215,7 @@
 .stat-value {
   color:  $medium-light;
   text-align: center;
-  font-size: 100pt;
+  font-size: 40pt;
 }
 
 .stat-unit {

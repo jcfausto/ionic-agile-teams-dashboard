@@ -93,6 +93,13 @@ var dashboard = (function () {
         $('#q-productivity').toggleClass("yellow", current_value === threshold);
     }    
 
+    
+    function render2() {
+        var html = "Hello {{team.name}}";
+
+        $("#content").html(html);
+    }
+
     function render(team) {
 
         var html = '<div class="row"><div class="quadrant">'+
@@ -116,7 +123,7 @@ var dashboard = (function () {
     }
 
     return {
-        render: render
+        render: render2
     }
 
 }());
