@@ -5,9 +5,10 @@
     var dev_host = "http://localhost:8001"
     var prod_host = "https://thawing-thicket-85466.herokuapp.com"
 
-    var teams_url = prod_host+"/api/users/1/organizations/";
-    var org_info_url = prod_host+"/api/users/1/organizations/"; 
-    var organizations_url = prod_host+"/api/users/";
+    var teams_url = dev_host+"/api/users/1/organizations/";
+    var org_info_url = dev_host+"/api/users/1/organizations/"; 
+    var organizations_url = dev_host+"/api/users/";
+    var all_teams_url = dev_host+"/teams";
 
     angular.module('kpisdashboard', ['ionic'])
 
@@ -22,11 +23,17 @@
                         });
             },
 
-            getTeams : function(organization_id){
+            getOrgTeams : function(organization_id){
                 return  $http.get(teams_url+organization_id+'/teams').then(function(response){ //wrap it inside another promise using then
                             return response.data;  //only return teams
                         });
             },
+
+            getAllTeams : function(organization_id){
+                return  $http.get(all_teams_url).then(function(response){ //wrap it inside another promise using then
+                            return response.data;  //only return teams
+                        });
+            },            
 
             getOrgInfo : function(organization_id) {
                 return  $http.get(org_info_url+organization_id).then(function(response){ //wrap it inside another promise using then
@@ -41,6 +48,10 @@
                 $scope.organizations = response;
             });
 
+            api.getAllTeams().then(function(response){
+                $scope.all_teams = response;
+            });
+
             //api.getOrgInfo().then(function(response){
             //    $scope.organization = response;
             //});            
@@ -52,7 +63,7 @@
                     okText: "Mudar"
                 }).then(function(res){
                     if (res) {
-                        api.getTeams(res).then(function(response){
+                        api.getOrgTeams(res).then(function(response){
                             $scope.teams = response;
                         });
 
@@ -63,7 +74,7 @@
                 })
             };
 
-            function render_dashboard(team) {
+            function get_dashboard_content(team) {
                 console.log(team);
 
                 var kpis = team.kpis;
@@ -122,7 +133,25 @@
                     '<div class="analysis-block-md" id="q-productivity"><div class="stat-title"><h4>Produtividade</h4></div>'+
                     '<div class="stat-value" id="productivity-count">'+team.id+'</div></div></div></div>';*/
 
-                 $("#content").html(html);
+                 return html;
+            }
+
+            function render_dashboard(team){
+                var html = get_dashboard_content(team)
+                $("#content").html(html);
+            }
+
+            function render_all_teams_dashboard(){
+                var html = "";
+                
+                $.map($scope.all_teams, function(obj) {                    
+
+                    //html += '<div id="team-'+team.id+'-kpis><h1>'+team.name+'</h1>' + 'team data' + '</div>';
+                    html += '<div class="card"><div class="item item-text-wrap"><h1>'+obj.name + '</h1><br/>' + get_dashboard_content(obj) + '</div></div>';
+                    
+                });
+
+                $("#content").html(html);
             }
 
             // Basic view routing
@@ -131,18 +160,25 @@
             function route() {                                
                 var hash = window.location.hash;
 
-                //console.log("route changed to " + hash);
+                console.log("route changed to " + hash);
 
                 var team_id = location.hash.substr(1).split('/')[2];
 
-                //console.log($scope.teams[team_id-1]);                
+                console.log("team id: " + team_id);                
 
-                $.map($scope.teams, function(obj) {
-                    if (obj.id == team_id)
-                        $scope.selected_team = obj;
-                });
+                if (team_id != "all") {
+                    $.map($scope.teams, function(obj) {
+                        if (obj.id == team_id)
+                            $scope.selected_team = obj;
+                    });
 
-                render_dashboard($scope.selected_team);
+                    render_dashboard($scope.selected_team);
+                }
+
+
+                if (team_id === "all") {
+                    render_all_teams_dashboard();
+                }
 
                 //if (hash === "#/dashboard/1") {
                 //    dashboard.render("1");
@@ -155,78 +191,7 @@
 
             //dashboard.render("None"); 
 
-    }]);        
-
-    $( document ).ready(function() {
-
-        /*
-        $.ajax({
-            url: organization_url,
-
-            type: 'GET',
-
-            crossDomain: true,
-
-            // Tell jQuery we're expecting JSONP
-            dataType: "json",
-         
-            // Work with the response
-            success: function( response ) {
-                var org_name = "";
-
-                $('#header>#h-title').html(response.name);
-
-            },
-            error: function( xhr, status, errorThrown ) {
-                console.log( "Sorry, there was a problem!" );
-                console.log( "Error: " + errorThrown );
-                console.log( "Status: " + status );
-                console.dir( xhr );
-            },
- 
-            complete: function( xhr, status ) {
-                //console.log( "The request is complete!" );
-            }
-        }); */
-
-        /*
-        $.ajax({
-            url: service_url,
-
-            type: 'GET',
-
-            crossDomain: true,
-
-            // Tell jQuery we're expecting JSONP
-            dataType: "json",
-         
-            // Work with the response
-            success: function( response ) {
-                var team_list = "";
-
-                // Log each key in the response data
-                $.each( response, function( id, team ) {
-                    team_list += '<li class="list-item"><a class="item-content" href="#dashboard/'+team.id+'"><i class="ion-stats-bars"></i><h3>' + team.name + '</h3><p>Equipe ' + team.name + '</p></a></li>';
-                    //console.log( id + " : " + team.name );
-                });
-
-                $('#left-nav>.list').html(team_list);
-
-                //console.log(team_list);
-            },
-            error: function( xhr, status, errorThrown ) {
-                console.log( "Sorry, there was a problem!" );
-                console.log( "Error: " + errorThrown );
-                console.log( "Status: " + status );
-                console.dir( xhr );
-            },
- 
-            complete: function( xhr, status ) {
-                //console.log( "The request is complete!" );
-            }
-        }); */
-
-    }); 
+    }]);            
 
     document.addEventListener("deviceready", function () {
         FastClick.attach(document.body);
@@ -243,6 +208,11 @@
         }
         return false;
     });
+
+    // Show/hide menu toggle
+    $('#btn-home').click(function () {
+        window.location = "#dashboard/all";
+    });    
 
     /* Basic view routing
     $(window).on('hashchange', route);
