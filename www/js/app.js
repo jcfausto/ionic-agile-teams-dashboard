@@ -5,10 +5,10 @@
     var dev_host = "http://localhost:8001"
     var prod_host = "https://thawing-thicket-85466.herokuapp.com"
 
-    var teams_url = dev_host+"/api/users/1/organizations/";
-    var org_info_url = dev_host+"/api/users/1/organizations/"; 
-    var organizations_url = dev_host+"/api/users/";
-    var all_teams_url = dev_host+"/teams";
+    var teams_url = prod_host+"/api/users/1/organizations/";
+    var org_info_url = prod_host+"/api/users/1/organizations/"; 
+    var organizations_url = prod_host+"/api/users/";
+    var all_teams_url = prod_host+"/teams";
 
     angular.module('kpisdashboard', ['ionic'])
 
