@@ -1,50 +1,38 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
+/**
+ * A simple example service that returns some data.
+ */
+.factory('api', function($http) {
   // Might use a resource here that returns a JSON array
+  var response;
 
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
+  //var api_endpoint = 'http://localhost:8001';
+  var api_endpoint = 'https://thawing-thicket-85466.herokuapp.com';
 
   return {
-    all: function() {
-      return chats;
+    getOrganizations: function() {
+      return $http.get(api_endpoint+'/organizations').then(function(data){
+          console.log(data.data);
+          response = data.data;
+          return response;
+      });
     },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
+
+    getOrganization: function(organizationId) {
+      return $http.get(api_endpoint+'/organizations/'+organizationId).then(function(data){
+          console.log(data.data);
+          response = data.data;
+          return response;
+      })
     },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
-        }
-      }
-      return null;
-    }
-  };
+
+    getTeam: function(teamId) {
+      return $http.get(api_endpoint+'/teams/'+teamId).then(function(data){
+          console.log(data.data);
+          response = data.data;
+          return response;
+      });
+    }    
+  }
 });
