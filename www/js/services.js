@@ -8,7 +8,7 @@ angular.module('starter.services', [])
   var response;
 
   //var api_endpoint = 'http://localhost:8001';
-  var api_endpoint = 'https://thawing-thicket-85466.herokuapp.com';
+  var api_endpoint = '[YOUR API ENDPOINT HERE]';
 
   return {
     getOrganizations: function() {
