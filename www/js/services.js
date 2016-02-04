@@ -3,12 +3,14 @@ angular.module('starter.services', [])
 /**
  * A simple example service that returns some data.
  */
-.factory('api', function($http) {
+.factory('api', function($http, apiEndpointUrl) {
   // Might use a resource here that returns a JSON array
   var response;
 
   //var api_endpoint = 'http://localhost:8001';
-  var api_endpoint = '[YOUR API ENDPOINT HERE]';
+
+  //Injected during server deployment via gulp task
+  var api_endpoint = apiEndpointUrl;
 
   return {
     getOrganizations: function() {

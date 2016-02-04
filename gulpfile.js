@@ -6,9 +6,17 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var config = require('gulp-ng-config');
 
 var paths = {
   sass: ['./scss/**/*.scss']
+};
+
+var configureSetup  = {
+  createModule: true,
+  constants: {
+    apiEndpointUrl: process.env.UNJ_AT_KPIS_API_URL,
+  }
 };
 
 gulp.task('default', ['sass']);
@@ -48,4 +56,11 @@ gulp.task('git-check', function(done) {
     process.exit(1);
   }
   done();
+});
+
+//https://medium.com/@kudresov/a-better-way-to-inject-environmental-variables-in-angular-d3b2d01a3c5e#.ec388h1g8
+gulp.task('config', function() {
+  gulp.src('config.json')
+      .pipe(config('starter.config', configureSetup))
+      .pipe(gulp.dest('www'));
 });
