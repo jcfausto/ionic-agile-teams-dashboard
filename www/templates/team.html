@@ -2,7 +2,7 @@
   <ion-content>	
   	<div>
 		<div ng-repeat="kpi in team.kpis" class="quadrant">
-			<div class="analysis-block-md" ng-class="{'red': kpi.values[0].value <= kpi.limits[0].lower_limit, 'yellow': kpi.values[0].value > kpi.limits[0].lower_limit && kpi.values[0].value < kpi.limits[0].upper_limit, 'green': kpi.values[0].value >= kpi.limits[0].upper_limit}" id="kpi-{{kpi.id}}">
+			<div class="analysis-block-md {{kpi.values[0].status}}" id="kpi-{{kpi.id}}">
 				<div class="stat-title">
 					<h4>{{kpi.name}}</h4>
 				</div>
